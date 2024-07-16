@@ -1,3 +1,4 @@
+import math
 class Model:
 
     def __init__(self, x=None, y=None):
@@ -29,19 +30,7 @@ class Model:
         for i in range(len(self._x)):
             self._x[i] += dx
             self._y[i] += dy
-
-    def centroid(self):
-        """
-        Calcula o centroide da forma geométrica.
-        Retorna uma tupla com as coordenadas do centroide.
-        """
-        if not self._x or not self._y:
-            return None
-        
-        cx = sum(self._x) / len(self._x)
-        cy = sum(self._y) / len(self._y)
-        return f"O centro da forma geometrica é: {(cx, cy)}"
-
+    
     def __eq__(self, other):
         """
         Verifica se duas formas geométricas são iguais.

@@ -4,16 +4,19 @@ from matplotlib.patches import *
 from package.maths.terms import *
 from package.maths.model import *
 import numpy as np
+from prompt_toolkit import prompt
+from prompt_toolkit.completion import WordCompleter
+
+def get_float_input(prompt):
+    while True:
+        try:
+            return float(input(prompt))
+        except ValueError:
+            print(f'Erro: Por favor, digite um número válido para {prompt.lower()}')
 
 def handle_ponto():   
-    try:
-        user_input = float(input('Digite a coordenada x: '))
-    except ValueError:
-        print('Erro: Por favor, digite um número válido para a coordenada x.')
-    try:
-        user_input_2 = float(input('Digite a coordenada y: '))
-    except ValueError:
-        print('Erro: Por favor, digite um número válido para a coordenada y.')
+    user_input = get_float_input('Digite a coordenada x: ')
+    user_input_2 = get_float_input('Digite a coordenada y: ')
     os.system('cls' if os.name == 'nt' else 'clear')
     ponto_1 = ponto(user_input, user_input_2)
     Cena.add_forma(ponto_1)
@@ -24,10 +27,10 @@ def handle_ponto():
     plt.show()
 
 def handle_reta():
-    user_input = float(input('Digite a coordenada x: '))
-    user_input_2 = float(input('Digite a coordenada y: '))
-    user_input_3 = float(input('Digite o valor de a: '))
-    user_input_4 = float(input('Digite o valor de b: '))
+    user_input = get_float_input('Digite a coordenada x: ')
+    user_input_2 = get_float_input('Digite a coordenada y: ')
+    user_input_3 = get_float_input('Digite o valor de a: ')
+    user_input_4 = get_float_input('Digite o valor de b: ')
     os.system('cls' if os.name == 'nt' else 'clear')
     segmento_1 = Reta(user_input_3, user_input_4, user_input, user_input_2)
     Cena.add_forma(segmento_1)
@@ -38,9 +41,9 @@ def handle_reta():
     plt.show()
 
 def handle_circulo():
-    user_input = float(input('Digite a coordenada x: '))
-    user_input_2 = float(input('Digite a coordenada y: '))
-    user_input_3 = float(input('Digite o valor do raio: '))
+    user_input = get_float_input('Digite a coordenada x: ')
+    user_input_2 = get_float_input('Digite a coordenada y: ')
+    user_input_3 = get_float_input('Digite o valor do raio: ')
     os.system('cls' if os.name == 'nt' else 'clear')
     circulo_1 = Circulo(user_input, user_input_2, user_input_3)
     Cena.add_forma(circulo_1)
@@ -59,12 +62,12 @@ def handle_circulo():
     plt.show()
 
 def handle_triangulo():
-    user_input = float(input('Digite a coordenada x1: '))
-    user_input_2 = float(input('Digite a coordenada y1: '))
-    user_input_3 = float(input('Digite a coordenada x2: '))
-    user_input_4 = float(input('Digite a coordenada y2: '))
-    user_input_5 = float(input('Digite a coordenada x3: '))
-    user_input_6 = float(input('Digite a coordenada y3: '))
+    user_input = get_float_input('Digite a coordenada x1: ')
+    user_input_2 = get_float_input('Digite a coordenada y1: ')
+    user_input_3 = get_float_input('Digite a coordenada x2: ')
+    user_input_4 = get_float_input('Digite a coordenada y2: ')
+    user_input_5 = get_float_input('Digite a coordenada x3: ')
+    user_input_6 = get_float_input('Digite a coordenada y3: ')
     os.system('cls' if os.name == 'nt' else 'clear')
             
     x = [user_input, user_input_3, user_input_5]
@@ -92,10 +95,10 @@ def handle_triangulo():
         plt.show()
 
 def handle_quadrado():
-    user_input = float(input('Digite a coordenada x1: '))
-    user_input_2 = float(input('Digite a coordenada y1: '))
-    user_input_3 = float(input('Digite a coordenada x2: '))
-    user_input_4 = float(input('Digite a coordenada y2: '))
+    user_input = get_float_input('Digite a coordenada x1: ')
+    user_input_2 = get_float_input('Digite a coordenada y1: ')
+    user_input_3 = get_float_input('Digite a coordenada x2: ')
+    user_input_4 = get_float_input('Digite a coordenada y2: ')
     os.system('cls' if os.name == 'nt' else 'clear')
 
     x = [user_input, user_input_3]
@@ -141,12 +144,12 @@ def handle_quadrado():
         plt.show()
 
 def handle_retangulo():
-    user_input = float(input('Digite a coordenada x1: '))
-    user_input_2 = float(input('Digite a coordenada y1: '))
-    user_input_3 = float(input('Digite a coordenada x2: '))
-    user_input_4 = float(input('Digite a coordenada y2: '))
-    user_input_5 = float(input('Digite a coordenada x3: '))
-    user_input_6 = float(input('Digite a coordenada y3: '))
+    user_input = get_float_input('Digite a coordenada x1: ')
+    user_input_2 = get_float_input('Digite a coordenada y1: ')
+    user_input_3 = get_float_input('Digite a coordenada x2: ')
+    user_input_4 = get_float_input('Digite a coordenada y2: ')
+    user_input_5 = get_float_input('Digite a coordenada x3: ')
+    user_input_6 = get_float_input('Digite a coordenada y3: ')
     os.system('cls' if os.name == 'nt' else 'clear')
     x = [user_input, user_input_3, user_input_5]
     y = [user_input_2, user_input_4, user_input_6]
@@ -180,14 +183,14 @@ def handle_retangulo():
         plt.show()
 
 def handle_trapezio():
-    user_input = float(input('Digite a coordenada x1: '))
-    user_input_2 = float(input('Digite a coordenada y1: '))
-    user_input_3 = float(input('Digite a coordenada x2: '))
-    user_input_4 = float(input('Digite a coordenada y2: '))
-    user_input_5 = float(input('Digite a coordenada x3: '))
-    user_input_6 = float(input('Digite a coordenada y3: '))
-    user_input_7 = float(input('Digite a coordenada x4: '))
-    user_input_8 = float(input('Digite a coordenada y4: '))
+    user_input = get_float_input('Digite a coordenada x1: ')
+    user_input_2 = get_float_input('Digite a coordenada y1: ')
+    user_input_3 = get_float_input('Digite a coordenada x2: ')
+    user_input_4 = get_float_input('Digite a coordenada y2: ')
+    user_input_5 = get_float_input('Digite a coordenada x3: ')
+    user_input_6 = get_float_input('Digite a coordenada y3: ')
+    user_input_7 = get_float_input('Digite a coordenada x4: ')
+    user_input_8 = get_float_input('Digite a coordenada y4: ')
     os.system('cls' if os.name == 'nt' else 'clear')
     x = [user_input, user_input_3, user_input_5, user_input_7]
     y = [user_input_2, user_input_4, user_input_6, user_input_8]
@@ -208,6 +211,7 @@ def handle_trapezio():
         plt.show()
 
 def handle_lista():
+    menu_completer = WordCompleter(['alterar'], ignore_case=True)
     lista = Cena.get_forma()
     i = 1
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -215,8 +219,20 @@ def handle_lista():
         print(f"{i}. Nome: {forma.__class__.__name__}")
         print(forma)
         i+=1
-    input("Pressione enter para continuar...")
-    os.system('cls' if os.name == 'nt' else 'clear')
+    print('Alterar coordenadas de uma forma geométrica: (digite: "alterar")')
+    user_input = prompt('Voltar ao Menu principal: (aperte Enter...)\n', completer=menu_completer)
+    if user_input.lower() == 'alterar':
+        print("Digite o número correspondente da forma geométrica que você deseja alterar:\n ")
+        user_input2 = int(input())  # Convertendo para int para comparação
+        formas = Cena.get_forma()  # Obtendo a lista de formas geométricas
+        if 0 <= user_input2 - 1 < len(formas):  # Verificando se o índice está dentro do intervalo válido
+            user_input3 = get_float_input("Digite o número de unidades quadráticas para a translação no eixo x: ")
+            user_input4 = get_float_input("Digite o número de unidades quadráticas para a translação no eixo y: ")
+            forma_selecionada = formas[user_input2 - 1]  # Acessando a forma geométrica selecionada
+            forma_selecionada.translate(user_input3, user_input4)  # Transladando a forma
+            print("Forma geométrica transladada com sucesso.")
+        else:
+            print("Número inválido. Por favor, tente novamente.")
 
 def handle_help():
     os.system('cls' if os.name == 'nt' else 'clear')
