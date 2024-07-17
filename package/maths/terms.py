@@ -72,15 +72,14 @@ class Circulo(Model):
     def perimetro(self):
         # o raio precisa ser definido antes
         return 2 * math.pi * self._raio
-    
-    def distancia(self):
-
-        print(self.centroid())
 
     def model(self):
 
         print(str(self))
-        print(f'Os parâmetros do meu modelo de circulo são: raio = {self._raio}, x = {self._x},  = {self._y}, pi = {math.pi}')
+
+    def is_point_inside_circle(self, x, y):
+        distance = math.sqrt((x - self._x[0]) ** 2 + (y - self._y[0]) ** 2)
+        return distance <= self._raio
 
 class triangulo(Model):
 
@@ -124,6 +123,18 @@ class triangulo(Model):
 
         print(str(self))
 
+    def is_point_inside_triangle(self, x, y):
+        # Calculate area of triangle ABC
+        A = 0.5 * (-self._y[1] * self._x[2] + self._x[0] * -self._y[1] + self._y[0] * self._x[2] - self._x[0] * self._y[2] + self._y[1] * self._x[2] - self._x[1] * self._y[0])
+        # Calculate area of triangle PBC
+        A1 = 0.5 * (-y * self._x[2] + self._x[0] * -self._y[1] + self._y[0] * self._x[2] - self._x[0] * -self._y[2] + self._y[1] * self._x[2] - self._x[1] * self._y[0])
+        # Calculate area of triangle PAC
+        A2 = 0.5 * (-self._y[1] * x + x * -self._y[2] + self._y[0] * self._x[2] - self._x[0] * -self._y[2] + self._y[1] * -self._y[2] - x * self._y[0])
+        # Calculate area of triangle PAB
+        A3 = 0.5 * (-self._y[1] * self._x[2] + self._x[0] * -y + self._y[0] * self._x[2] - self._x[0] * self._y[2] + y * self._x[2] - self._x[1] * self._y[0])
+        # Check if sum of A1, A2 and A3 is same as A
+        return A == A1 + A2 + A3
+
 class quadrado(Model):
     
     def __init__(self,x=None,y=None):
@@ -150,6 +161,12 @@ class quadrado(Model):
     def model(self):
     
         print(str(self))
+
+    def is_point_inside_square(self, x, y):
+        # Check if the point is inside the square
+        return self._x[0] <= x <= self._x[1] and self._y[0] <= y <= self._y[1]
+
+
 
 class retangulo(Model):
     
@@ -180,6 +197,10 @@ class retangulo(Model):
     def model(self):
 
         print(str(self))
+
+    def is_point_inside_rectangle(self, x, y):
+        # Check if the point is inside the rectangle
+        return self._x[0] <= x <= self._x[1] and self._y[0] <= y <= self._y[1] and self._x[1] <= x <= self._x[2] and self._y[1] <= y <= self._y[2]
 
 class trapezio(Model):
     def __init__(self, x, y):
@@ -237,6 +258,18 @@ class trapezio(Model):
                      math.sqrt((self._x[3] - self._x[0]) ** 2 + (self._y[3] - self._y[0]) ** 2))
 
         return perimetro
+    
+    def is_point_inside_trapezium(self, x, y):
+        # Verificar se o ponto está dentro do trapézio
+        # Calcular a área total do trapézio
+        area_total = self.area()
+        # Calcular a área dos quatro triângulos formados pelo ponto e os vértices do trapézio
+        area1 = 0.5 * abs((self._x[0] * (self._y[1] - self._y[3]) + self._x[1] * (self._y[3] - self._y[0]) + self._x[3] * (self._y[0] - self._y[1])))
+        area2 = 0.5 * abs((self._x[1] * (self._y[2] - self._y[0]) + self._x[2] * (self._y[0] - self._y[1]) + self._x[0] * (self._y[1] - self._y[2])))
+        area3 = 0.5 * abs((self._x[2] * (self._y[3] - self._y[1]) + self._x[3] * (self._y[1] - self._y[2]) + self._x[1] * (self._y[2] - self._y[3])))
+        area4 = 0.5 * abs((self._x[3] * (self._y[0] - self._y[2]) + self._x[0] * (self._y[2] - self._y[3]) + self._x[2] * (self._y[3] - self._y[0])))
+        # Verificar se a soma das áreas dos triângulos é igual à área total
+        return area_total == area1 + area2 + area3 + area4
     
     def model(self):
         

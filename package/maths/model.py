@@ -9,10 +9,10 @@ class Model:
     # Restante da classe...
 
     def set_coords(self, x, y):
-        if str.isdigit(str(x)) and str.isdigit(str(y)):
+        if all(isinstance(item, (int, float)) for item in x) and all(isinstance(item, (int, float)) for item in y):
             self._x = x
             self._y = y
-        else: 
+        else:
             raise ValueError("As coordenadas devem ser números")
 
     def getX(self):

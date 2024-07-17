@@ -45,10 +45,16 @@ def handle_circulo():
     user_input_2 = get_float_input('Digite a coordenada y: ')
     user_input_3 = get_float_input('Digite o valor do raio: ')
     os.system('cls' if os.name == 'nt' else 'clear')
-    circulo_1 = Circulo(user_input, user_input_2, user_input_3)
+    circulo_1 = Circulo(user_input_3, user_input, user_input_2)
     Cena.add_forma(circulo_1)
     circulo_1.model()
-    circulo_1.distancia()
+    lista = Cena.get_forma()
+    for forma in lista:
+       if forma.__class__.__name__ == 'ponto':
+           if circulo_1.is_point_inside_circle(forma.getX()[0],forma.getY()[0]):
+            print(f"O ponto criado com as coordenadas: x=[{forma.getX()[0]}],y=[{forma.getY()[0]}] está dentro do círculo")
+           else:
+            print(f"O ponto criado com as coordenadas: x=[{forma.getX()[0]}],y=[{forma.getY()[0]}] está fora do círculo")
     print(f'A área do circulo é: {circulo_1.area():.2f}')
     print(f'O perímetro do circulo é: {circulo_1.perimetro():.2f}')
     print(f'\033[31mPor favor, quando estiver pronto(a), clique no "x" do gráfico para continuar\033[0m')
@@ -84,6 +90,13 @@ def handle_triangulo():
     else:
         trianguloCheck.model()
         trianguloCheck.TipoTriangulo()
+        lista = Cena.get_forma()
+    for forma in lista:
+       if forma.__class__.__name__ == 'ponto':
+        if trianguloCheck.is_point_inside_triangle(forma.getX()[0],forma.getY()[0]):
+            print(f"O ponto criado com as coordenadas: x=[{forma.getX()[0]}],y=[{forma.getY()[0]}] está dentro do triángulo")
+        else:
+            print(f"O ponto criado com as coordenadas: x=[{forma.getX()[0]}],y=[{forma.getY()[0]}] está fora do triángulo")
         print(f'O perímetro do triangulo é: {trianguloCheck.perimetro():.2f}')
         print(f'A área do triangulo é: {trianguloCheck.area():.2f}')
         print(f'\033[31mPor favor, quando estiver pronto(a), clique no "x" do gráfico para continuar\033[0m')
@@ -111,6 +124,14 @@ def handle_quadrado():
         quadrado_1.model()
         print(f'O perímetro do quadrado é: {quadrado_1.perimetro():.2f}')
         print(f'A área do quadrado é: {quadrado_1.area():.2f}')
+        lista = Cena.get_forma()
+        for forma in lista:
+            if forma.__class__.__name__ == 'ponto':
+                if quadrado_1.is_point_inside_square(forma.getX()[0],forma.getY()[0]):
+                    print(f"O ponto criado com as coordenadas: x=[{forma.getX()[0]}],y=[{forma.getY()[0]}] está dentro do quadrado")
+                else:
+                    print(f"O ponto criado com as coordenadas: x=[{forma.getX()[0]}],y=[{forma.getY()[0]}] está fora do quadrado")
+        print(f'\033[31mPor favor, quando estiver pronto(a), clique no "x" do gráfico para continuar\033[0m')
 
         # Step 1: Determine the center point
         center_x = (user_input + user_input_3) / 2
@@ -161,6 +182,13 @@ def handle_retangulo():
         retangulo_1.model()
         print(f'O perímetro do retangulo é: {retangulo_1.perimetro():.2f}')
         print(f'A área do retangulo é: {retangulo_1.area():.2f}')
+        lista = Cena.get_forma()
+        for forma in lista:
+            if forma.__class__.__name__ == 'ponto':
+                if retangulo_1.is_point_inside_rectangle(forma.getX()[0],forma.getY()[0]):
+                    print(f"O ponto criado com as coordenadas: x=[{forma.getX()[0]}],y=[{forma.getY()[0]}] está dentro do retângulo")
+                else:
+                    print(f"O ponto criado com as coordenadas: x=[{forma.getX()[0]}],y=[{forma.getY()[0]}] está fora do retângulo")
         print(f'\033[31mPor favor, quando estiver pronto(a), clique no "x" do gráfico para continuar\033[0m')
         x_d = x[0] + x[2] - x[1]
         y_d = y[0] + y[2] - y[1]
@@ -202,6 +230,13 @@ def handle_trapezio():
         trapezio_1.model()
         print(f'O perímetro do trapezio é: {trapezio_1.perimetro():.2f}')
         print(f'A área do trapezio é: {trapezio_1.area():.2f}')
+        lista = Cena.get_forma()
+        for forma in lista:
+            if forma.__class__.__name__ == 'ponto':
+                if trapezio_1.is_point_inside_trapezium(forma.getX()[0],forma.getY()[0]):
+                    print(f"O ponto criado com as coordenadas: x=[{forma.getX()[0]}],y=[{forma.getY()[0]}] está dentro do trapezio")
+                else:
+                    print(f"O ponto criado com as coordenadas: x=[{forma.getX()[0]}],y=[{forma.getY()[0]}] está fora do trapezio")
         print(f'\033[31mPor favor, quando estiver pronto(a), clique no "x" do gráfico para continuar\033[0m')
         plt.plot([user_input,user_input_3,user_input_5,user_input_7,user_input],[user_input_2,user_input_4,user_input_6,user_input_8,user_input_2])
         ax = plt.gca()
