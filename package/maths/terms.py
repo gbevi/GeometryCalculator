@@ -15,6 +15,10 @@ class ponto(Model):
 
         print(str(self))
 
+    def distanciaPontos(self, x, y):
+        distancia = math.sqrt((x - self._x[0]) ** 2 + (y - self._y[0]) ** 2)
+        return distancia
+
 class Reta(Model):
     def __init__(self,a,b,x=None,y=None):
 
@@ -48,6 +52,10 @@ class Reta(Model):
     def model(self):
 
         print(f'Os parâmetros do meu modelo de reta são: a={self._a}, b={self._b}')
+
+    def is_point_on_line(self, x, y):
+        # Check if the point is on the line
+        return y == self._a * x + self._b
 
 class Circulo(Model):
 

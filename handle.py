@@ -19,12 +19,17 @@ def handle_ponto():
     user_input_2 = get_float_input('Digite a coordenada y: ')
     os.system('cls' if os.name == 'nt' else 'clear')
     ponto_1 = ponto(user_input, user_input_2)
+    lista = Cena.get_forma()
+    for forma in lista:
+        if forma.__class__.__name__ == 'ponto':
+           print(f'A distância entre o ponto criado e o ponto ({forma.getX()[0]},{forma.getY()[0]}) é: {ponto_1.distanciaPontos(forma.getX()[0],forma.getY()[0]):.2f}')
     Cena.add_forma(ponto_1)
     print(f"A distância do ponto para a origem é: {ponto_1.distanciaDe0()}")
     ponto_1.model()
     print(f'\033[31mPor favor, quando estiver pronto(a), clique no "x" do gráfico para continuar\033[0m')
     plt.plot(user_input, user_input_2, 'ro')
     plt.show()
+    input("Pressione enter para continuar...")
 
 def handle_reta():
     user_input = get_float_input('Digite a coordenada x: ')
@@ -33,12 +38,20 @@ def handle_reta():
     user_input_4 = get_float_input('Digite o valor de b: ')
     os.system('cls' if os.name == 'nt' else 'clear')
     segmento_1 = Reta(user_input_3, user_input_4, user_input, user_input_2)
+    lista = Cena.get_forma()
+    for forma in lista:
+        if forma.__class__.__name__ == 'ponto':
+            if segmento_1.is_point_on_line(forma.getX()[0],forma.getY()[0]):
+                print(f"O ponto criado com as coordenadas: x=[{forma.getX()[0]}],y=[{forma.getY()[0]}] está contido na reta")
+            else:
+                print(f"O ponto criado com as coordenadas: x=[{forma.getX()[0]}],y=[{forma.getY()[0]}] não está contido na reta")
     Cena.add_forma(segmento_1)
     segmento_1.coordenadas()
     print(f'Interpolando, y = {segmento_1.interpolar():.2f}')
     print(f'\033[31mPor favor, quando estiver pronto(a), clique no "x" do gráfico para continuar\033[0m')
     plt.plot([0, segmento_1.getX()[0]], [segmento_1.getB(), segmento_1.interpolar()])
     plt.show()
+    input("Pressione enter para continuar...")
 
 def handle_circulo():
     user_input = get_float_input('Digite a coordenada x: ')
@@ -66,6 +79,7 @@ def handle_circulo():
     ax.set_ylim(circulo_1.getY()[0] - circulo_1.getRaio() - 1, circulo_1.getY()[0] + circulo_1.getRaio() + 1)
     ax.set_aspect('equal')
     plt.show()
+    input("Pressione enter para continuar...")
 
 def handle_triangulo():
     user_input = get_float_input('Digite a coordenada x1: ')
@@ -87,6 +101,7 @@ def handle_triangulo():
     trianguloCheck.area()
     if trianguloCheck.isValidTriangle() == False:
         print('Triangulo inválido')
+        input("Pressione enter para continuar...")
     else:
         trianguloCheck.model()
         trianguloCheck.TipoTriangulo()
@@ -106,6 +121,7 @@ def handle_triangulo():
         ax.set_ylim(minY - 1, maxY + 1)
         ax.set_aspect('equal')
         plt.show()
+        input("Pressione enter para continuar...")
 
 def handle_quadrado():
     user_input = get_float_input('Digite a coordenada x1: ')
@@ -119,6 +135,7 @@ def handle_quadrado():
     quadrado_1 = quadrado(x, y)
     if quadrado_1.isValidSquare() == False:
         print('Quadrado inválido')
+        input("Pressione enter para continuar...")
     else:
         Cena.add_forma(quadrado_1)
         quadrado_1.model()
@@ -163,6 +180,7 @@ def handle_quadrado():
         plt.ylim(min(y_corners) - 1, max(y_corners) + 1)
         plt.gca().set_aspect('equal', adjustable='box')
         plt.show()
+        input("Pressione enter para continuar...")
 
 def handle_retangulo():
     user_input = get_float_input('Digite a coordenada x1: ')
@@ -177,6 +195,7 @@ def handle_retangulo():
     retangulo_1 = retangulo(x, y)
     if retangulo_1.isValidRectangle() == False:
         print('Retangulo inválido')
+        input("Pressione enter para continuar...")
     else:
         Cena.add_forma(retangulo_1)
         retangulo_1.model()
@@ -209,6 +228,7 @@ def handle_retangulo():
         plt.ylim(min(y) - 1, max(y) + 1)
         plt.gca().set_aspect('equal', adjustable='box')
         plt.show()
+        input("Pressione enter para continuar...")
 
 def handle_trapezio():
     user_input = get_float_input('Digite a coordenada x1: ')
@@ -225,6 +245,7 @@ def handle_trapezio():
     trapezio_1 = trapezio(x, y)
     if trapezio_1.isValidTrapezium() == False:
         print('Trapézio inválido')
+        input("Pressione enter para continuar...")
     else:
         Cena.add_forma(trapezio_1)
         trapezio_1.model()
@@ -244,6 +265,7 @@ def handle_trapezio():
         ax.set_ylim(min(y) - 1, max(y) + 1)
         ax.set_aspect('equal')
         plt.show()
+        input("Pressione enter para continuar...")
 
 def handle_lista():
     menu_completer = WordCompleter(['alterar'], ignore_case=True)
@@ -266,13 +288,16 @@ def handle_lista():
             forma_selecionada = formas[user_input2 - 1]  # Acessando a forma geométrica selecionada
             forma_selecionada.translate(user_input3, user_input4)  # Transladando a forma
             print("Forma geométrica transladada com sucesso.")
+            input("Pressione enter para continuar...")
         else:
             print("Número inválido. Por favor, tente novamente.")
+            input("Pressione enter para continuar...")
 
 def handle_help():
     os.system('cls' if os.name == 'nt' else 'clear')
     print("Opções disponíveis:")
-    print("ponto, reta, circulo, triangulo, quadrado, retangulo, trapezio")
+    print("(ponto, reta, circulo, triangulo, quadrado, retangulo, trapezio)")
+    print("dica: para ver as relações entre as formas geométricas e os pontos, basta criar um ponto e em seguida criar a forma geométrica desejada")
     input("Pressione enter para continuar...")
 
     

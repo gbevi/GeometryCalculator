@@ -27,6 +27,7 @@ def main():
         print('Criar formas geométricas:')
         print('Digite: "help" para ver as opções')
         print('Ver formas geométricas criadas: (digite: "lista")')
+        print('Obs: As unidades de medida desse programa estão em unidades quadráticas')
         user_choice = prompt('Sair: (digite: "sair")\n', completer=menu_completer)
         action = menu_actions.get(user_choice, default_case)
         action()
